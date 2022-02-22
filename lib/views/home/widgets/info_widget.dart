@@ -26,7 +26,7 @@ class InfoWidget extends StatelessWidget {
                   Container(
                     width: 24,
                     height: 24,
-                    decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(6.0)),
+                    decoration: BoxDecoration(border: Border.all(color: Colors.red), borderRadius: BorderRadius.circular(6.0)),
                   ),
                   const SizedBox(width: 8.0),
                   const Expanded(
@@ -43,7 +43,7 @@ class InfoWidget extends StatelessWidget {
                   Container(
                     width: 24,
                     height: 24,
-                    decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(6.0)),
+                    decoration: BoxDecoration(border: Border.all(color: Colors.green), borderRadius: BorderRadius.circular(6.0)),
                   ),
                   const SizedBox(width: 8.0),
                   const Expanded(
@@ -57,25 +57,48 @@ class InfoWidget extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
+                  Container(
+                    width: 24,
+                    height: 24,
+                    decoration: BoxDecoration(border: Border.all(color: Colors.orange), borderRadius: BorderRadius.circular(6.0)),
+                  ),
+                  const SizedBox(width: 8.0),
+                  const Expanded(
+                    child: Text(
+                      'You may see the orange boxes if the game type is "Math" or "Word".\nThis means that the value in the position is correct but there is more than one of the same value in the puzzle.\nIf the box is orange, the box position is considered conditionally correct and you can continue playing.\nHowever, this can make solving the puzzle difficult.\nTherefore, it is recommended to proceed by seeing that the boxes are green.',
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12.0),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
                       Container(
                         width: 24,
                         height: 24,
-                        decoration: BoxDecoration(color: Colors.red.withOpacity(.5), borderRadius: BorderRadius.circular(6.0)),
+                        decoration: BoxDecoration(border: Border.all(color: Colors.red.withOpacity(.3)), borderRadius: BorderRadius.circular(6.0)),
                       ),
-                      const SizedBox(height: 4.0),
+                      const SizedBox(width: 4.0),
                       Container(
                         width: 24,
                         height: 24,
-                        decoration: BoxDecoration(color: Colors.green.withOpacity(.5), borderRadius: BorderRadius.circular(6.0)),
+                        decoration: BoxDecoration(border: Border.all(color: Colors.green.withOpacity(.3)), borderRadius: BorderRadius.circular(6.0)),
+                      ),
+                      const SizedBox(width: 4.0),
+                      Container(
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(border: Border.all(color: Colors.orange.withOpacity(.3)), borderRadius: BorderRadius.circular(6.0)),
                       ),
                     ],
                   ),
                   const SizedBox(width: 8.0),
                   const Expanded(
                     child: Text(
-                      'An opaque boxes means that horizontal and vertical neighbors can be dragged here.\nIf the opaque box is green, its position in the puzzle is correct.\nIf it is red, its position in the puzzle is incorrect.',
+                      'An opaque boxes means that horizontal and vertical neighbors can be dragged here.',
                     ),
                   ),
                 ],
@@ -112,7 +135,7 @@ class InfoWidget extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               const Text(
-                'In this puzzle type, each line have a mathematical operation and the result of this operation at the end of the line.\nYou should try to reach the result by sliding the boxes.\nAn example column: +3 +1 +2 = +6',
+                'In this puzzle type, each line have a mathematical operation and the result of this operation at the end of the line.\nYou should try to reach the result by sliding the boxes.\nAn example column: +3 +1 +2 = 6',
               ),
               const SizedBox(height: 12.0),
               const Text(

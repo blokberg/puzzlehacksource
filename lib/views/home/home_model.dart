@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:puzzleapp/enums/box_positions.dart';
 
 import '../../enums/gametype_enum.dart';
 import '../../helper/box_and_text_style.dart';
@@ -69,22 +70,28 @@ class HomeModel extends ChangeNotifier {
     return BoxAndTextStyle.instance.getBoxDecoration(
       context: _context,
       box: box,
-      isRightPosition: isRightPosition(box: box),
+      position: isRightPosition(box: box),
     );
   }
 
-  bool isRightPosition({required BoxProperties box}) {
+  BoxPositions isRightPosition({required BoxProperties box}) {
     if (_gameType == GameType.number) {
-      return box.shuffleIndex == box.orderIndex;
+      return box.shuffleIndex == box.orderIndex ? BoxPositions.right : BoxPositions.wrong;
     }
     if (box.shuffleIndex == box.orderIndex) {
-      return true;
+      return BoxPositions.right;
     } else {
       int i = _shuffeledList.indexWhere((element) => element.orderIndex == box.shuffleIndex);
       if (i > -1) {
-        return _gameType == GameType.math ? _shuffeledList[i].mathValue == box.mathValue : _shuffeledList[i].wordValue == box.wordValue;
+        return _gameType == GameType.math
+            ? _shuffeledList[i].mathValue == box.mathValue
+                ? BoxPositions.conditionalRight
+                : BoxPositions.wrong
+            : _shuffeledList[i].wordValue == box.wordValue
+                ? BoxPositions.conditionalRight
+                : BoxPositions.wrong;
       }
-      return false;
+      return BoxPositions.wrong;
     }
   }
 
@@ -138,12 +145,12 @@ class HomeModel extends ChangeNotifier {
   void checkFinished() {
     bool isFinished = false;
     for (var element in _shuffeledList) {
-      bool val = isRightPosition(box: element);
-      if (!val) {
+      BoxPositions val = isRightPosition(box: element);
+      if (val == BoxPositions.wrong) {
         debugPrint('Game is not finished...');
         return;
       } else {
-        if (val && element.shuffleIndex == 15) {
+        if ((val == BoxPositions.right || val == BoxPositions.conditionalRight) && element.shuffleIndex == 15) {
           isFinished = true;
         }
       }

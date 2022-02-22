@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:puzzleapp/enums/box_positions.dart';
 
 import 'box_properties.dart';
 
@@ -19,15 +20,19 @@ class BoxAndTextStyle {
   BoxDecoration getBoxDecoration({
     required BuildContext context,
     required BoxProperties box,
-    required bool isRightPosition,
+    required BoxPositions position,
   }) {
-    Color color = isRightPosition
+    Color color = position == BoxPositions.right
         ? box.isTarget
             ? Colors.green.withOpacity(.3)
             : Colors.green
-        : box.isTarget
-            ? Colors.redAccent.withOpacity(.3)
-            : Colors.redAccent;
+        : position == BoxPositions.conditionalRight
+            ? box.isTarget
+                ? Colors.orange.withOpacity(.3)
+                : Colors.orange
+            : box.isTarget
+                ? Colors.redAccent.withOpacity(.3)
+                : Colors.redAccent;
     return BoxDecoration(
       color: Theme.of(context).scaffoldBackgroundColor,
       borderRadius: const BorderRadius.all(Radius.circular(12.0)),
