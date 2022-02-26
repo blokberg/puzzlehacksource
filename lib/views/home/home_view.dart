@@ -29,29 +29,30 @@ class HomeView extends StatelessWidget {
       body: SafeArea(
         child: ChangeNotifierProvider(
           create: (_) => HomeModel.instance(context: context),
-          builder: (_, child) => SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 16),
-                Selector<HomeModel, GameType>(
-                  selector: (_, m) => m.gameType,
-                  builder: (_, type, __) => GameTypeBtns(tableSize: _tableSize),
-                ),
-                Center(
-                  child: Selector<HomeModel, Tuple2<bool, bool>>(
-                    selector: (_, m) => Tuple2(m.showOrderList, m.listChanged),
-                    builder: (_, items, __) {
-                      return _PuzzleTableWidget(
-                        tableSize: _tableSize,
-                        list: !items.item1 ? _.read<HomeModel>().shuffeledList : _.read<HomeModel>().orderList,
-                      );
-                    },
+          builder: (_, child) => Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Selector<HomeModel, GameType>(
+                    selector: (_, m) => m.gameType,
+                    builder: (_, type, __) => GameTypeBtns(tableSize: _tableSize),
                   ),
-                ),
-                ActionBtnsWidget(tableSize: _tableSize),
-              ],
+                  Center(
+                    child: Selector<HomeModel, Tuple2<bool, bool>>(
+                      selector: (_, m) => Tuple2(m.showOrderList, m.listChanged),
+                      builder: (_, items, __) {
+                        return _PuzzleTableWidget(
+                          tableSize: _tableSize,
+                          list: !items.item1 ? _.read<HomeModel>().shuffeledList : _.read<HomeModel>().orderList,
+                        );
+                      },
+                    ),
+                  ),
+                  ActionBtnsWidget(tableSize: _tableSize),
+                ],
+              ),
             ),
           ),
         ),
@@ -73,10 +74,9 @@ class _PuzzleTableWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: tableSize + (spacing * 8),
       height: tableSize + (spacing * 8),
-      alignment: Alignment.center,
       child: GridView.count(
         physics: const NeverScrollableScrollPhysics(),
         mainAxisSpacing: spacing,

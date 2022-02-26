@@ -12,7 +12,14 @@ class GameTypeBtns extends StatelessWidget {
     return Container(
       width: tableSize + 20,
       margin: const EdgeInsets.only(bottom: 12.0),
-      decoration: const BoxDecoration(border: Border(bottom: BorderSide(width: .5, color: Colors.grey))),
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            width: .5,
+            color: Colors.grey,
+          ),
+        ),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,

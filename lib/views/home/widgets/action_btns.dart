@@ -15,7 +15,14 @@ class ActionBtnsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: tableSize + 20,
-      decoration: const BoxDecoration(border: Border(top: BorderSide(width: .5, color: Colors.grey))),
+      decoration: const BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            width: .5,
+            color: Colors.grey,
+          ),
+        ),
+      ),
       margin: const EdgeInsets.only(top: 12.0),
       padding: const EdgeInsets.only(top: 8.0),
       child: Row(
